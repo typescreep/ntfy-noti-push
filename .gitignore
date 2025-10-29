@@ -41,6 +41,8 @@ captures/
 app/build/generated
 app/build/intermediates
 app/build/kotlin
+app/build/snapshot
+app/build/tmp
 app/build/outputs/logs
 
 # --- Logs & temp files ---
