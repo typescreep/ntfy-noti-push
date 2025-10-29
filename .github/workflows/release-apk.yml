@@ -1,0 +1,53 @@
+name: Build & Release APK (debug)
+
+on:
+  push:
+    tags:
+      - "v*"          # e.g. v1.0.0
+  workflow_dispatch:   # allow manual runs too
+
+permissions:
+  contents: write      # needed to create a release & upload assets
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug
+
+      - name: Verify APK exists
+        run: ls -al app/build/outputs/apk/debug/
+
+      # Creates (or updates) the GitHub Release for this tag and uploads the APK
+      - name: Release APK
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            app/build/outputs/apk/debug/app-debug.apk
+          # Optionally set a release body or name:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
