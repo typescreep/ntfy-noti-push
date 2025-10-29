@@ -1,0 +1,23 @@
+<!-- app/src/main/res/layout/activity_settings.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnGrantAccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grant Notification Access"/>
+
+    <Button
+        android:id="@+id/btnTestSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Test to ntfy"/>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

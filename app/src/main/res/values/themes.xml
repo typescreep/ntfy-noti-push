@@ -1,0 +1,5 @@
+<!-- app/src/main/res/values/themes.xml -->
+<resources>
+    <!-- Use an AppCompat theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>

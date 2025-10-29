@@ -1,0 +1,72 @@
+# --- Android / Gradle build ---
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# --- Local configuration (machine-specific) ---
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# --- Gradle caches ---
+.gradle-cache/
+gradle-app.setting
+
+# --- Android Studio / IntelliJ ---
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# --- Generated outputs ---
+# Ignore all general build folders
+app/build/
+app/release/
+app/debug/
+outputs/
+captures/
+*.apk
+*.ap_   # packaged resources
+
+# --- Keep only the debug APK (re-include parents) ---
+!app/
+!app/build/
+!app/build/outputs/
+!app/build/outputs/apk/
+!app/build/outputs/apk/debug/
+!app/build/outputs/apk/debug/app-debug.apk
+app/build/generated
+app/build/intermediates
+app/build/kotlin
+app/build/outputs/logs
+
+# --- Logs & temp files ---
+*.log
+*.tmp
+*.temp
+*.lock
+*.bak
+
+# --- OS-specific ---
+Thumbs.db
+.DS_Store
+ehthumbs.db
+desktop.ini
+
+# --- Docker ---
+/docker-compose.override.yml
+/docker-data/
+/mnt/
+/workspace/
+
+# --- Optional SDK & cache volumes (for docker-compose) ---
+/sdk/
+/.gradle-cache/
+/android-sdk/
+
+# --- Misc secrets ---
+/*.keystore
+/keystore.properties

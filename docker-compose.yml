@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  android-build:
+    build:
+      context: .
+      dockerfile: Dockerfile.android
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace # your project
+      - gradle-cache:/root/.gradle # speed up subsequent builds
+      - android-sdk:/sdk # reuse Android SDK between runs
+    environment:
+      ANDROID_SDK_ROOT: /sdk
+      ANDROID_HOME: /sdk
+      JAVA_TOOL_OPTIONS: -Xmx2g
+    # If you're on Apple Silicon and hit toolchain issues, uncomment the next line:
+    # platform: linux/amd64
+    command: >
+      bash -lc '
+        # Ensure Gradle wrapper exists (uses container gradle if missing)
+        if [ ! -f gradlew ]; then
+          echo "No gradlew found; generating one..."
+          gradle wrapper --gradle-version 8.7
+        fi
+
+        # Make sure local.properties points to the mounted SDK
+        if [ ! -f local.properties ]; then
+          echo "sdk.dir=/sdk" > local.properties
+        else
+          grep -q "^sdk.dir=" local.properties || echo "sdk.dir=/sdk" >> local.properties
+        fi
+
+        # Build debug APK
+        ./gradlew --no-daemon assembleDebug
+      '
+
+volumes:
+  gradle-cache:
+  android-sdk:

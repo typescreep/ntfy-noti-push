@@ -1,0 +1,62 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:key="server_url"
+        android:title="ntfy server URL"
+        android:dialogTitle="ntfy server URL"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:key="topic"
+        android:title="Topic"
+        android:dialogTitle="Topic"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:key="auth_token"
+        android:title="Bearer token (optional)"
+        android:dialogTitle="Bearer token"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:key="exclude_packages"
+        android:title="Exclude packages (comma-separated)"
+        android:summary="e.g. com.example.ntfynotipush, io.heckel.ntfy" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="send_removed"
+        android:title="Also send on remove/cancel"
+        android:defaultValue="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="allow_insecure_ssl"
+        android:title="Allow insecure TLS (self-signed certs)"
+        android:summary="Only enable if your ntfy uses a self-signed certificate"
+        android:defaultValue="false" />
+
+    <Preference
+        android:key="status_last_event"
+        android:title="Last notification seen"
+        android:summary="(none yet)"/>
+
+    <Preference
+        android:key="status_details"
+        android:title="Last app/title"
+        android:summary="—"/>
+
+    <Preference
+        android:key="status_last_send"
+        android:title="Last send attempt"
+        android:summary="(none yet)"/>
+
+    <Preference
+        android:key="status_last_http"
+        android:title="Last HTTP result"
+        android:summary="(none)"/>
+
+    <Preference
+        android:key="status_last_enqueued"
+        android:title="Last enqueued"
+        android:summary="(none yet)"/>
+</PreferenceScreen>

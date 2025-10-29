@@ -1,0 +1,4 @@
+<!-- app/src/main/res/values/strings.xml -->
+<resources>
+    <string name="app_name">ntfy Noti Push</string>
+</resources>

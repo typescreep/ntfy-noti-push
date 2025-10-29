@@ -1,0 +1,30 @@
+# Gradle image gives us Java + Gradle CLI for wrapper generation if needed
+FROM gradle:8.7-jdk17 AS base
+
+# Install Android command-line tools + SDK
+ENV ANDROID_SDK_ROOT=/sdk \
+  ANDROID_HOME=/sdk \
+  DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  wget unzip ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# Download latest commandline-tools (version pin helps reproducibility)
+# You can update the URL to a newer rev if needed.
+ARG CMDLINE_TOOLS_ZIP=https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+
+RUN mkdir -p /sdk/cmdline-tools \
+  && wget -qO /tmp/cmdtools.zip "$CMDLINE_TOOLS_ZIP" \
+  && unzip -q /tmp/cmdtools.zip -d /sdk/cmdline-tools \
+  && rm /tmp/cmdtools.zip \
+  && mv /sdk/cmdline-tools/cmdline-tools /sdk/cmdline-tools/latest
+
+# Install required SDK components (API 34 + build-tools 34.0.0; tweak if your project needs different)
+RUN yes | /sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+RUN /sdk/cmdline-tools/latest/bin/sdkmanager \
+  "platform-tools" \
+  "platforms;android-34" \
+  "build-tools;34.0.0"
+
+WORKDIR /workspace
